@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { addPost } from '../store/actions/postAction';
+import { useSelector, useDispatch } from 'react-redux';
+import { addPost, getPosts } from '../store/actions/postAction';
 import { usersSelector } from '../store/selectors/usersSelector';
 
 const PostForm = () => {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
-    likes: 0,
   });
 
   const dispatch = useDispatch();
@@ -24,21 +22,33 @@ const PostForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addPost({ ...formData, author: users[0].pseudo }));
-    setFormData({
-      title: '',
-      content: '',
-      likes: 0,
-    });
+    const { title, content } = formData;
+
+    if (title && content) {
+      const data = {
+        title,
+        content,
+        author: users[0].pseudo,
+        likes: 0,
+      };
+
+      await dispatch(addPost(data));
+
+      setFormData({
+        title: '',
+        content: '',
+      });
+      dispatch(getPosts());
+    }
   };
 
   return (
     <div className='form-container'>
       <form>
         <input
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           name='title'
           value={formData.title}
           type='text'
