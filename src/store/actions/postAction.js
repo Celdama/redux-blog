@@ -5,6 +5,7 @@ import {
   ADD_POST,
   EDIT_POST,
   DELETE_POST,
+  ADD_LIKE,
 } from '../reducers/postReducer';
 
 export const getPosts = () => {
@@ -40,7 +41,7 @@ export const addPost = (data) => {
 export const editPost = (data) => {
   return async (dispatch) => {
     try {
-      await axios.put(`http://localhost:3000/posts/${data.id}`, data);
+      await axios.put(`http://localhost:3000/posts/${data.id}`, { ...data });
       dispatch({
         type: EDIT_POST,
         payload: { ...data },
@@ -58,6 +59,20 @@ export const deletePost = (id) => {
       dispatch({
         type: DELETE_POST,
         payload: { id },
+      });
+    } catch (err) {
+      return console.log(err);
+    }
+  };
+};
+
+export const addLike = (data) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`http://localhost:3000/posts/${data.id}`, { ...data });
+      dispatch({
+        type: ADD_LIKE,
+        payload: { ...data },
       });
     } catch (err) {
       return console.log(err);

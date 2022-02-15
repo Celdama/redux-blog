@@ -36,11 +36,11 @@ const PostForm = () => {
 
       await dispatch(addPost(data));
 
+      dispatch(getPosts());
       setFormData({
         title: '',
         content: '',
       });
-      dispatch(getPosts());
     }
   };
 

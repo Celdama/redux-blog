@@ -21,8 +21,8 @@ const Post = ({ post }) => {
       id: post.id,
     };
 
-    dispatch(editPost(postData));
     setEditToggle(!editToggle);
+    dispatch(editPost(postData));
   };
 
   return (
