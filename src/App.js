@@ -2,15 +2,17 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Post from './components/Post';
 import PostForm from './components/PostForm';
-import User from './components/User';
+import { UserStore } from './components/User';
 import { getPosts } from './store/actions/postAction';
-import { postSelector } from './store/selectors/postSelector';
+import { getUsers } from './store/actions/userAction';
+import { postSelector } from './store/selectors/postsSelector';
 
 export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getUsers());
   }, [dispatch]);
 
   const posts = useSelector(postSelector);
@@ -21,7 +23,7 @@ export const App = () => {
       <PostForm />
       <div className='content'>
         <div className='post-container'>{content}</div>
-        <User />
+        <UserStore />
       </div>
     </div>
   );

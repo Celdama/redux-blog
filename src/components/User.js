@@ -1,16 +1,26 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { usersSelector } from '../store/selectors/usersSelector';
 
-const User = () => {
+export const User = ({ users }) => {
   return (
     <div className='user-container'>
-      <div className='user'>
-        <h3>userPseudo</h3>
-        <img src='https://thispersondoesnotexist.com/image' alt='' />
-        <p>Age : 35 ans</p>
-        <p>Like(s) : 0</p>
-      </div>
+      {users[0] && (
+        <div className='user'>
+          <h3>{users[0].pseudo}</h3>
+          <img src='https://thispersondoesnotexist.com/image' alt='' />
+          <p>Age : 35 ans</p>
+          <p>
+            Like{users[0].likes > 1 ? 's' : ''} : {users[0].likes}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default User;
+export const UserStore = () => {
+  const users = useSelector(usersSelector);
+
+  return <User users={users} />;
+};
