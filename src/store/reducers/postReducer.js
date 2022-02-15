@@ -13,7 +13,7 @@
 
 export const GET_POSTS = 'GET_POSTS';
 
-const initialState = {};
+const initialState = [];
 
 export const postReducer = (state = initialState, action) => {
   switch (action.type) {
