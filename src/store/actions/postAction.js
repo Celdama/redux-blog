@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-import { GET_POSTS, ADD_POST, EDIT_POST } from '../reducers/postReducer';
+import {
+  GET_POSTS,
+  ADD_POST,
+  EDIT_POST,
+  DELETE_POST,
+} from '../reducers/postReducer';
 
 export const getPosts = () => {
   return async (dispatch) => {
@@ -39,6 +44,20 @@ export const editPost = (data) => {
       dispatch({
         type: EDIT_POST,
         payload: { ...data },
+      });
+    } catch (err) {
+      return console.log(err);
+    }
+  };
+};
+
+export const deletePost = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`http://localhost:3000/posts/${id}`);
+      dispatch({
+        type: DELETE_POST,
+        payload: { id },
       });
     } catch (err) {
       return console.log(err);

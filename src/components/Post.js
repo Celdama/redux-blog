@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { usersSelector } from '../store/selectors/usersSelector';
-import { editPost } from '../store/actions/postAction';
+import { editPost, deletePost } from '../store/actions/postAction';
 
 import Like from './Like';
 
@@ -30,7 +30,7 @@ const Post = ({ post }) => {
       {user[0] && user[0].pseudo === post.author && (
         <div>
           <button onClick={() => setEditToggle(!editToggle)}>edit</button>
-          <button>delete</button>
+          <button onClick={() => dispatch(deletePost(post.id))}>delete</button>
         </div>
       )}
       <h2>{post.title}</h2>
